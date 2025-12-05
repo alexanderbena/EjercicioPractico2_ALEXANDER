@@ -26,7 +26,7 @@ public class ProjectConfig {
         http
             .authorizeHttpRequests(auth -> auth
                 // Recursos públicos
-                .requestMatchers("/", "/login", "/logout", "/css/**", "/js/**", "/images/**").permitAll()
+                .requestMatchers("/", "/login", "/logout", "/css/**", "/js/**", "/images/**", "/fragmentos/**").permitAll()
                 // Restricciones por rol
                 .requestMatchers("/usuarios/**", "/roles/**").hasRole("ADMIN")
                 .requestMatchers("/reportes/**").hasRole("PROFESOR")
