@@ -19,15 +19,14 @@ public class ProjectConfig {
         return new BCryptPasswordEncoder();
     }
 
+
     // Configuración principal de seguridad
-    @Bean
+     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests(auth -> auth
                 // Recursos públicos
-                .requestMatchers("/css/**", "/js/**", "/images/**").permitAll()
-                // Login y logout accesibles
-                .requestMatchers("/login", "/logout").permitAll()
+                .requestMatchers("/", "/login", "/logout", "/css/**", "/js/**", "/images/**").permitAll()
                 // Restricciones por rol
                 .requestMatchers("/usuarios/**", "/roles/**").hasRole("ADMIN")
                 .requestMatchers("/reportes/**").hasRole("PROFESOR")
@@ -36,8 +35,8 @@ public class ProjectConfig {
                 .anyRequest().authenticated()
             )
             .formLogin(form -> form
-                .loginPage("/login")                // Página personalizada de login
-                .defaultSuccessUrl("/post-login", true) // Redirección según rol
+                .loginPage("/login")                   // Vista personalizada de login
+                .defaultSuccessUrl("/", true) // Redirección según rol
                 .permitAll()
             )
             .logout(logout -> logout
@@ -48,6 +47,7 @@ public class ProjectConfig {
 
         return http.build();
     }
+
      
     
 }

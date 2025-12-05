@@ -11,9 +11,7 @@ package com.fidelitas.EjercicioPractico2_ALEXANDER.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.authority.AuthorityUtils;
-
-import java.util.Set;
+ 
 
 @Controller
 public class AuthController {
@@ -23,17 +21,16 @@ public class AuthController {
         return "auth/login"; // Vista Thymeleaf
     }
 
-    @GetMapping("/post-login")
+     @GetMapping("/post-login")
     public String postLogin(Authentication auth) {
-        Set<String> roles = AuthorityUtils.authorityListToSet(auth.getAuthorities());
-
-        if (roles.contains("ROLE_ADMIN")) {
+        if (auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
             return "redirect:/usuarios";
-        } else if (roles.contains("ROLE_PROFESOR")) {
+        } else if (auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_PROFESOR"))) {
             return "redirect:/reportes";
         } else {
             return "redirect:/perfil";
         }
     }
+
 }
 
