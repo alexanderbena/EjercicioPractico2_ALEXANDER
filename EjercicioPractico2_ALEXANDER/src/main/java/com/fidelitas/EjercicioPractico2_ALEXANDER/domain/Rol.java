@@ -9,10 +9,11 @@ package com.fidelitas.EjercicioPractico2_ALEXANDER.domain;
  * @author alexa
  */
 import jakarta.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "rol", uniqueConstraints = @UniqueConstraint(name = "ux_rol_nombre", columnNames = "nombre"))
-public class Rol {
+public class Rol implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -9,13 +9,14 @@ package com.fidelitas.EjercicioPractico2_ALEXANDER.domain;
  * @author alexa
  */
 import jakarta.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 
 
 @Entity
 @Table(name = "usuario", indexes = @Index(name = "idx_usuario_rol", columnList = "rol_id"))
-public class Usuario {
+public class Usuario implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
