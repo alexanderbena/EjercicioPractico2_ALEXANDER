@@ -1,15 +1,51 @@
 <!DOCTYPE html>
-<!--
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
--->
-<html>
-    <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
+<html xmlns:th="http://www.thymeleaf.org" 
+      th:replace="general/fragmentos.html :: base(contenido)">
+<head>
+    <title>Formulario de Usuario</title>
+</head>
+<body>
+<div th:fragment="contenido" class="container">
+    <h2 class="text-primary mb-4">Gestión de Usuario</h2>
+
+    <form th:action="@{/usuarios}" th:object="${usuario}" method="post" class="card p-4 shadow-sm">
+        <div class="mb-3">
+            <label for="nombre" class="form-label">Nombre</label>
+            <input type="text" th:field="*{nombre}" id="nombre" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="apellido" class="form-label">Apellido</label>
+            <input type="text" th:field="*{apellido}" id="apellido" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="email" class="form-label">Correo Electrónico</label>
+            <input type="email" th:field="*{email}" id="email" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="password" class="form-label">Contraseña</label>
+            <input type="password" th:field="*{password}" id="password" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="rol" class="form-label">Rol</label>
+            <select th:field="*{rol}" id="rol" class="form-select">
+                <option th:each="rol : ${roles}" th:value="${rol}" th:text="${rol.nombre}"></option>
+            </select>
+        </div>
+
+        <div class="form-check mb-3">
+            <input type="checkbox" th:field="*{activo}" id="activo" class="form-check-input">
+            <label for="activo" class="form-check-label">Activo</label>
+        </div>
+
+        <div class="d-flex justify-content-between">
+            <button type="submit" class="btn btn-success">Guardar</button>
+            <a th:href="@{/usuarios}" class="btn btn-secondary">Cancelar</a>
+        </div>
+    </form>
+</div>
+</body>
 </html>
